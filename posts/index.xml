@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on Dez&#39;Log</title>
-    <link>https://dezhaozhu.github.io.git/posts/</link>
+    <link>https://dezhaozhu.github.io/posts/</link>
     <description>Recent content in Posts on Dez&#39;Log</description>
     <image>
       <title>Dez&#39;Log</title>
-      <url>https://dezhaozhu.github.io.git/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>https://dezhaozhu.github.io.git/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <url>https://dezhaozhu.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://dezhaozhu.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 29 Feb 2024 22:23:23 +0800</lastBuildDate><atom:link href="https://dezhaozhu.github.io.git/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 29 Feb 2024 22:23:23 +0800</lastBuildDate><atom:link href="https://dezhaozhu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>OpenAI Five</title>
-      <link>https://dezhaozhu.github.io.git/posts/openaifive/</link>
+      <link>https://dezhaozhu.github.io/posts/openaifive/</link>
       <pubDate>Thu, 29 Feb 2024 22:23:23 +0800</pubDate>
       
-      <guid>https://dezhaozhu.github.io.git/posts/openaifive/</guid>
+      <guid>https://dezhaozhu.github.io/posts/openaifive/</guid>
       <description></description>
     </item>
     

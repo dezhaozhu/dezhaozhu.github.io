@@ -1,3 +1,3 @@
 User-agent: *
 Disallow:
-Sitemap: https://dezhaozhu.github.io.git/sitemap.xml
+Sitemap: https://dezhaozhu.github.io/sitemap.xml
