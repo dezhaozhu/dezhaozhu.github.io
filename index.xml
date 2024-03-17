@@ -11,14 +11,14 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 29 Feb 2024 22:23:23 +0800</lastBuildDate><atom:link href="https://dezhaozhu.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 14 Mar 2024 23:40:00 +0800</lastBuildDate><atom:link href="https://dezhaozhu.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>OpenAI Five</title>
+      <title>Summary of OpenAI Five details</title>
       <link>https://dezhaozhu.github.io/posts/openaifive/</link>
-      <pubDate>Thu, 29 Feb 2024 22:23:23 +0800</pubDate>
+      <pubDate>Thu, 14 Mar 2024 23:40:00 +0800</pubDate>
       
       <guid>https://dezhaozhu.github.io/posts/openaifive/</guid>
-      <description></description>
+      <description>Reinforcement learning has been a research hotspot for many years. OpenAI Five, which started to defeat amateur human teams at Dota 2 still very impressive work. Dota 2 is one of the most popular and complex esports games in the world, a real-time strategy game played between two teams of five players, with each player controlling a character called a “hero”. To play Dota 2, an AI system must address various challenges: long time horizons, partially-observed state, high-dimensional action and observation spaces.</description>
     </item>
     
     
