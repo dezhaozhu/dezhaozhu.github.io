@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Summary of OpenAI Five details | Dez&#39;Log</title>
+<meta name="keywords" content="">
+<meta name="description" content="Reinforcement learning has been a research hotspot for many years. OpenAI Five, which started to defeat amateur human teams at Dota 2 still very impressive work. Dota 2 is one of the most popular and complex esports games in the world, a real-time strategy game played between two teams of five players, with each player controlling a character called a “hero”. To play Dota 2, an AI system must address various challenges: long time horizons, partially-observed state, high-dimensional action and observation spaces.">
+<meta name="author" content="Dezhao Zhu">
+<link rel="canonical" href="https://dezhaozhu.github.io/posts/openaifive/openaifive/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.c4fffb0ee300dc6b1fc0b0e900dc40df2c36931315d57beda4b17d56115abc90.css" integrity="sha256-xP/7DuMA3GsfwLDpANxA3yw2kxMV1XvtpLF9VhFavJA=" rel="preload stylesheet" as="style">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+
+
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+<script defer>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ],
+        });
+    });
+</script>
+<meta property="og:title" content="Summary of OpenAI Five details" />
+<meta property="og:description" content="Reinforcement learning has been a research hotspot for many years. OpenAI Five, which started to defeat amateur human teams at Dota 2 still very impressive work. Dota 2 is one of the most popular and complex esports games in the world, a real-time strategy game played between two teams of five players, with each player controlling a character called a “hero”. To play Dota 2, an AI system must address various challenges: long time horizons, partially-observed state, high-dimensional action and observation spaces." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dezhaozhu.github.io/posts/openaifive/openaifive/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-30T00:00:00+00:00" />
+<meta property="article:modified_time" content="2024-03-30T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Summary of OpenAI Five details"/>
+<meta name="twitter:description" content="Reinforcement learning has been a research hotspot for many years. OpenAI Five, which started to defeat amateur human teams at Dota 2 still very impressive work. Dota 2 is one of the most popular and complex esports games in the world, a real-time strategy game played between two teams of five players, with each player controlling a character called a “hero”. To play Dota 2, an AI system must address various challenges: long time horizons, partially-observed state, high-dimensional action and observation spaces."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://dezhaozhu.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Summary of OpenAI Five details",
+      "item": "https://dezhaozhu.github.io/posts/openaifive/openaifive/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Summary of OpenAI Five details",
+  "name": "Summary of OpenAI Five details",
+  "description": "Reinforcement learning has been a research hotspot for many years. OpenAI Five, which started to defeat amateur human teams at Dota 2 still very impressive work. Dota 2 is one of the most popular and complex esports games in the world, a real-time strategy game played between two teams of five players, with each player controlling a character called a “hero”. To play Dota 2, an AI system must address various challenges: long time horizons, partially-observed state, high-dimensional action and observation spaces.",
+  "keywords": [
+    
+  ],
+  "articleBody": " Reinforcement learning has been a research hotspot for many years. OpenAI Five, which started to defeat amateur human teams at Dota 2 still very impressive work. Dota 2 is one of the most popular and complex esports games in the world, a real-time strategy game played between two teams of five players, with each player controlling a character called a “hero”. To play Dota 2, an AI system must address various challenges: long time horizons, partially-observed state, high-dimensional action and observation spaces. Algorithms run at sufficient scale and with a reasonable way of exploring.\nObservation Dota 2 engine runs at 30 frames per second. To speed up the game execution and bring reactions of the model closer to the human scale, OpenAI Five downsamples to every 4th frame, which called timestep. Each timestep, OpenAI Five receives an observation from the game engine encoding all the information a human player would see such as units’ health, position, etc, and approximates the information available to a human player in a set of data arrays (semantic observation).\nFig. 1. Timescales and Staleness: The breakdown of a rollout game. An OpenAI Five hero observes 16000 inputs about the game state, including 1,200 categorical values and 14,534 continuous / boolean values. All float observations (including booleans which are treated as floats that happen to take values 0 or 1) are normalized before feeding into the neural network (subtract the mean and divide by the st dev, clipping the final result to be within (-5, 5)).\n189 units: heroes (5), creeps (30), buildings (21), wards (30), and courier (1) for each team, plus 15 neutrals. If the number of visible units in a category is less than the allotted number, the rest are padded with zeroes. If more, the model observes only the units closest to allied heroes. Units in fog of war are not observed. When enemy heroes are in fog of war, the model reuses the observation from the last time step when the unit was visible. Tab. 1. Full observation space. Action The action space also includes primary actions and parameter actions. Across the two games the average number of actions for a hero varied from 8,000 to 80,000.\nPrimary actions: including universal actions like noop, move, attack, and others. Using or activating one of the hero’s spells, items, and situational actions such as Buyback (if dead), Shrine (if near a shrine), or Purchase (if near a shop). Parameter actions: 3 parameter outputs, including delay (4 dim，indicates which frame during the frameskip the model wants this action to evaluate on, but the model did not learn to do this and simply taking the action at the start of the frameskip was better), unit selection (189 dim), and offset (grid, 81 dim). Depending on the primary action, some of them are read and others ignored. OpenAI Five masks out the ignored ones, and invalid parameter combinations are treated as no-ops. Because teleport action is much more rare, the model outputs a normal unit selection parameter and a separate teleport selection parameter, and one or the other is used depending on the primary action. Similarly, the Offset parameter is split into “Regular Offset”, “Caster Offset” (for actions which only make sense offset from the caster), and “Ward Placement Offset” (for the rare action of placing observer wards). Scripted actions randomly perturbed to ensure robustness: Take the build order as an example, this randomization is done randomly deleting items from the build order and randomly inserting new items sampled from the distribution of which items that hero usually buys in human games. Each additional action that removed from the scripted logic and hand to the model’s control gives the RL.\nAbility builds: in training, OpenAI Five randomizes around the fixed script somewhat to ensure the model is robust to the opponent choosing a different schedule. Item purchasing: for consumables, OpenAI Five ensures that the agent always has a certain set of consumables, and stops purchasing consumables after a certain time in the game. For non-consumables, OpenAI Five follows a fixed schedule. Item swap: keep the most valuable items in the inventory. Courier control: use a state-machine based logic to control this character. Environment Design Dota2 environment to behave like a standard OpenAI Gym environment. The step method is called in the gRPC server, it gets dispatched to the Lua code and then the method blocks until an observation arrives back from Lua to be returned to the caller. Go was chosen to make this architecture easy to implement through its channels feature. Putting the game environment behind a gRPC server allowed us to package the game into a Docker image and easily run many isolated game instances per machine. Originally the Lua scripting API was used to iterate and gather the visible game state, however this was somewhat slow and final system used an all-in-one game state collection method that was added through cooperation with Valve.\nReward Shaped reward is modeled loosely after potential-based shaping functions, and gave the agent reward (or penalty) for a set of actions which humans playing the game generally agree to be good. In addition to the set of actions rewarded and their weight, reward function contains 3 other pieces.\nZero sum: OpenAI Five postprocess each agent’s reward by subtracting the other team’s average reward to prevent the agents from finding positive-sum situations. Game time weighting: multiplying all rewards other than the win / loss reward by a factor which decays exponentially over the course of the game. $\\rho_i\\leftarrow\\rho_i\\times0.6^{(T/10\\mathrm{~mins})}$ Team spirit: lower team spirit reduces gradient variance in early training, ensuring that agents receive clearer reward for advancing their mechanical and tactical ability to participate in fights individually, when team spirit is 1, the total amount of reward is five times higher for “Team” rewards than “Solo” rewards. Tab. 2. Shaped reward weights. Model OpenAI Five use five replica LSTMs for five heros, policy (rsingle-layer 4096-unit LSTM) has approximately 159 million parameters. Separate fully connected layers producing policy and value function outputs, value function and action policy share a network and share gradients.\nBefore inputting LSTM, OpenAI Five processes each observation according to its data type. For example for spatial data, concatenate the data within each cell and then apply a 2 layer conv net. For unordered sets, use a “Process Set” module. Weights in the Process Set module for processing abilities / items / modifiers are shared across allied and enemy heroes; weights for processing modifiers are shared across allied / enemy / neutral nonheroes. The model also extracts the the Unit Embeddings from the “embedding output” of the units’ process sets, for use in the output.\nFig. 2. Flattening the observation space. LSTM receives an extra input from the observation processing, indicating which of the five heroes is being controlled, the only differences are the nearby map, previous action, and a very small fraction of the observations for each unit, it is possible that they are not needed at all. “Cross-hero pool” operation, in which we maxpool the first 25% of the vector across the five replica networks. The “Unit Embeddings” from the observation processing are carried along beside the LSTM, and used by the action heads to choose a unit to target.\nFig. 3. Preparing for LSTM. Fig. 4. The hidden state of the LSTM and unit embeddings are used to parameterize the actions. Training The policy is trained using Proximal Policy Optimization (PPO was the first to show initial learning progress). The optimization algorithm uses Generalized Advantage Estimation (GAE, $\\lambda = 0.95$), a standard advantage-based variance reduction technique to stabilize and accelerate training. Made changes to four key hyperparameters: learning Rate, entropy penalty coefficient, team spirit, GAE time horizon. Batch sizes of 1 to 3 million timesteps (grouped in unrolled LSTM windows of length 16). OpenAI Five plays 180 years worth of games against itself every day, learning via self-play. It trains using a scaled-up version of Proximal Policy Optimization running on 256 GPUs and 128,000 CPU cores. OpenAI Five trained for 180 days (spread over 10 months of real time due to restarts and reverts).\nTab. 3. Hyperparameters. Asynchronously: the policy parameters which played the start of the game would be an hour old or more, making the gradients estimated from them incorrect. Consequently, OpenAI Five accumulates small amount of training data, sending it over to optimizers and updating agent parameters, then continuing with the same game. A central pool of optimizer GPUs receives game data and stores it asynchronously in local buffers called experience buffers. Each optimizer GPU computes gradients using minibatches sampled randomly from its experience buffer (4096 samples). Gradients are averaged across the pool using NCCL2 allreduce before being synchronously applied to the parameters. The Adam optimizer truncated backpropagation between $\\pm5\\sqrt{v}$ where $v$ is the running estimate of the second moment of the (unclipped) gradient. Every 32 gradient steps, the optimizers publish a new version of the parameters to a central Redis storage called the controller. The controller also stores all metadata about the state of the system, for stopping and restarting training runs. Rough cost statistics by dollars spent: Optimization（30%），forward passes (30%), rollouts CPUs running the selfplay games (30%), TrueSkill evaluators, CPUs on the GPU machines, etc (10%). The entire system runs on the custom distributed training platform called Rapid, running on Google Cloud Platform, using ops from the blocksparse library for fast GPU training.\nFig. 5. System overview. Self-play: play the latest policy against itself for 80% of games, and play against older policies for 20% of games. Opponents nearby in skill but avoid playing agents more than 10 TrueSkill points (corresponding to a winrate less than 15% or more than 85%). OpenAI Five uses a dynamic sampling system in which each past opponent $i = 1..N$ is given a quality score $q_{i}$. Opponent agents are sampled according to a softmax distribution $q_{i} \\leftarrow q_{i}-\\frac{\\eta}{N p_{i}}$. Every 10 iterations OpenAI Five adds the current agent to past opponent pool and initialize its quality score to the maximum of the existing qualities. After each rollout game is completed, if the past opponent defeats the current agent, no update is applied. If the current agent defeats a past opponent, an update is applied proportional to a learning rate constant (which we fix at 0.01).\nAction offset: reducing computational requirements, likely an underestimate of reaction time. The model takes at time $T+1$ is based upon the observation at time $T$，reaction time randomly distributed between 5 and 8 frames (167ms to 267ms)，depending on when during the frameskip the new information happens to occur.\nFig. 6. Reaction time. To reproduce OpenAI Five, rerun took 2 months and approximately 20% of the resources of OpenAI Five, which continued to improve beyond OpenAI Five’s skill, and reached over 98% winrate against the final version of OpenAI Five. Some parameters were changed in the original OpenAI Five out of necessity, and others were changed for compute resources (batch size, sample reuse).\nExploration Loss function：entropy is added to the PPO loss，lower it during training，and entropy coefficient 0.01 performs best（Lower entropy performs worse because the model has a harder time exploring, higher entropy performs much worse because the actions are too random）, team spirits：at the very start team spirit 0 is the best, quickly ovdertaken by team spirit 0.3 and 0.5, and OpenAI Five hypothesizes that later in training team spirit 1.0 will be best.\nEnvironment Randomization：initial state (In rollout games, heroes start with random perturbations around the default starting), lane assignments (randomly assigned each hero to a subset of lanes, and penalized them with negative reward for leaving those lanes，ablation study indicates that this may not have been necessary in the end), Roshan health：in order to make this task easier to learn, OpenAI Five randomizes Roshan’s health between zero and the full value, making it easier to kill, hero lineup (training with additional heroes causes only a modest slowdown to training despite the extra heroes having new abilities and strategies which interact in complex ways), item selection (swapping, adding, or removing some items from the build，a team with randomly picked items is likely to perform worse, as our standard build is carefully crafted).\nExperiments cover early training (approximately one week) at small scale (8x smaller than Rerun). (1) Batch Size: In practice we see less than this ideal speedup (linear speedup). (2) Data Quality: staleness and sample reuse (3) Long term credit assignment: maximize rewards 6 minutes into the future (reward shaping).\nBatch size：8x smaller than Rerun (which itself was 2-3 times smaller than OpenAI Five). Larger batch sizes showed that strong scaling was possible by carefully tuning learning rate and initialization of the neural network. Sample quality — staleness: by artificially introducing additional delay found staleness between 0 and 1 performs best. Sample quality — sampling and sample reuse: sample reuse below one can be beneficial，sample reuse 1 just means that on average each sample is used once, but in fact many samples are used twice, and some not used at all. Two adjacent samples from the same game may have similar drawbacks to using the same sample twice, so sample reuse 1 appropriate. Surgery The goal is how to initialize the new parameters for the TrueSkill of agent $\\hat{\\pi} _ {\\hat{\\theta}}=\\pi_{\\theta}$ (Similar to prior work on Net2Net style function preserving transformations which attempt to add model capacity without compromising performance). Total of twenty surgeries (along with many unsuccessful surgery attempts). It is convient to adding a new game feature which expected to only matter at high skill (adding items like Bottle and Rapier), and minor improvements to the observation space (stock counts, modifiers on nonheroes, and others).\nChanging the architecture: adding more units to an internal fully-connected layer of the model. Initializing neural network weights to zero is a dangerous business, because it can introduce undesired symmetries between the indices of the output vector. However, this was easy to avoid by only zero-ing the minimal set of weights (in the example above, the symmetry is broken by the randomization of $\\hat{W}_1$ and $\\hat{B}_1$). Note for LSTM from 2048 units to 4096 units：set the new weights to random small values. $$ \\hat{W}_1=\\left[ \\begin{array}{c} W_1 \\\\ R() \\end{array}\\right] \\quad \\hat{B}_1=\\left[ \\begin{array}{c} B_1 \\\\ R() \\end{array}\\right] \\quad \\hat{W}_2=\\left[ \\begin{array}{cc} W_2 \u0026 0 \\end{array}\\right] $$ Changing the Observation Space: before the policy sees the observation arrays, an “encoder” function $E$ has turned a game state $s$ into an input array $o$. Then initializing the new weights $\\hat{W}$ as: $$ \\hat{W}=\\left[\\begin{array}{ll} W \u0026 0 \\end{array}\\right] $$ This ensures that the rest of the model is unchanged. The weights which are initialized to zero will move away from zero due to the gradients, if the corresponding observations are found to be useful. Changing the Environment: the game gets an update about once every two weeks, constantly changing the environment semantics or action space (Buyback). Simply making the change on the rollout workers to be relatively stable，“anneal“ from 0 to 100%. When the model losing TrueSkill during the annealing process, training revert and attempt the anneal at a slower rate. Agent’s skill is measured through winrates against other models, and the opponent also has to play in the new environment. Removing Model Parts: simply always set to constants. Smooth Training Restart: use a learning rate of 0 for the first several hours of training after surgery. It is crucial to ensure agent behavior is unchanged after surgery (avoid forever playing worse, reducing the quality of the opponent pool). Supplementary OpenAI Five can react to a game event in 217ms on average, and typical human visual reaction time is approximately 250ms. OpenAI Five originally used MPI’s allreduce for averaging, but then used NCCL2 wrappers that parallelize GPU computations and network data transfer.\nScripted actions: certain game mechanics were controlled by hand-scripted logic rather than the policy, such as the order in which heroes purchase items and abilities, control of the unique courier unit, and which items heroes keep in reserve.\nHero selection：use the win probability predictor, precompute agent’s predicted win probability from the first few frames of every lineup. Because only 4,900,896 combinations of two 5-hero teams from the pool of 17 heroes, dynamic programming algorithm to draft the best hero available on each turn is possible (using minimax algorithm picking the one that maximizes worstcase scenario of opponent hero selection). Hero Pool Size: training with 80 heroes in early stage has a speedup factor of approximately 0.8, meaning early training runs 20% slower than with the base 17 heroes.\nFig. 7. When drafting heroes, OpenAI Five drafting program would pick the one that maximizes worst- case scenario of opponent hero selection (minimax algorithm). A failed surgery found replacing a certain set of 128 learned parameters (discarded) in the model with zero (special) increased the model’s performance significantly.\nDivine Rapier could cause the agents to enter a negative feedback, which was not observed during initial long-lasting training because Rapier was only added after the team spirit hyperparamater was raised to 1.\nEvaluation OpenAI Five defeated the Dota 2 world champions in a best-of-three match and 99.4% of human players during a multi-day online showcase. To evaluating agents’ understanding, OpenAI Five attempts to predict future state of various features of the game (win probability, net worth rank, and team objectives / enemy buildings) from agent’s LSTM state (adding small networks of fully-connected layers that transform LSTM output into predictions of these values). For win probability, for example, more precisely the label $y$ for a segment from time $t_1$ to $t_2$ is given by:\n$$ y= \\begin{cases}1 \u0026 \\text { last segment of the game, we win } \\\\ 0 \u0026 \\text { last segment of the game, we lose } \\\\ \\hat{y}\\left(t_2\\right) \u0026 \\text { else }\\end{cases} $$\nWhere $\\hat{y}\\left(t_2\\right)$ is the model’s predicted win probability at the end of the segment. For historical reasons, win probability passes gradients to the main LSTM and rest of the agent with a very small weight, the other auxiliary predictions use Tensorflow’s stop_gradient method to train on their own. Team objectives / enemy buildings：apply an additional discount factor with horizon of 2 minutes. Time horizon over discounts rewards (as a proxy), defined as $H=\\frac{T}{1-\\gamma}$, here $\\gamma$ is the discount factor and $T$ is the real game time corresponding to each step (0.133 seconds).\nFor TrueSkill rating system, difference of approximately 8.3 between two agents roughly corresponds to an 80% winrate of one versus the other (hand-crafted scripted agent TrueSkill around 105). Reference agents range in TrueSkill from 0 (random play) to 254. New agents are initialized with $\\mu$ equal to the final $\\mu$ of the previous agent, and system gives agent updates approximately once every two hours during running experiments. One difficulty in using TrueSkill was maintaining consistent metrics with a changing environment. Though older agents had their code upgraded in order to always be compatible with the newest version, this still leads to metric inflation for newer agents who got to train on the same code they are evaluated on.\nSome OpenAI Five’s “playstyle\": (1) prioritized large group fights in the game as opposed to accumulating resources for later. (2) concentrate resources in the hands of its strongest heroes (3) moved heroes back and forth across the map much more frequently, understood of when an aggressive attack with a low-health hero was worth a risk, tended to more readily consume resources, as well as abilities with long cooldowns (time it takes to reload).\nReferences [1] Berner, Christopher, et al. “Dota 2 with large scale deep reinforcement learning.” arXiv preprint arXiv:1912.06680 (2019).\n",
+  "wordCount" : "3252",
+  "inLanguage": "en",
+  "datePublished": "2024-03-30T00:00:00Z",
+  "dateModified": "2024-03-30T00:00:00Z",
+  "author":[{
+    "@type": "Person",
+    "name": "Dezhao Zhu"
+  }],
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://dezhaozhu.github.io/posts/openaifive/openaifive/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Dez'Log",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://dezhaozhu.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://dezhaozhu.github.io/" accesskey="h" title="Dez&#39;Log (Alt + H)">Dez&#39;Log</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://dezhaozhu.github.io/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://dezhaozhu.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://dezhaozhu.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://dezhaozhu.github.io/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Summary of OpenAI Five details
+    </h1>
+    <div class="post-meta"><span title='2024-03-30 00:00:00 +0000 UTC'>March 30, 2024</span>&nbsp;·&nbsp;16 min&nbsp;·&nbsp;Dezhao Zhu
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#observation">Observation</a></li>
+        <li><a href="#action">Action</a></li>
+        <li><a href="#environment">Environment</a></li>
+        <li><a href="#reward">Reward</a></li>
+        <li><a href="#model">Model</a></li>
+        <li><a href="#training">Training</a></li>
+        <li><a href="#exploration">Exploration</a></li>
+        <li><a href="#surgery">Surgery</a></li>
+        <li><a href="#supplementary">Supplementary</a></li>
+        <li><a href="#evaluation">Evaluation</a></li>
+        <li><a href="#references">References</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><!-- 图片，参考文献，还有一些公式，字体和格式 -->
+<!-- https://openai.com/research/openai-five
+https://openai.com/research/openai-five-defeats-dota-2-world-champions
+https://openai.com/research/ai-and-compute  -->
+<p>Reinforcement learning has been a research hotspot for many years. <a href="https://arxiv.org/abs/1912.06680">OpenAI Five</a>, which started to defeat amateur human teams at Dota 2 still very impressive work. Dota 2 is one of the most popular and complex esports games in the world, a real-time strategy game played between two teams of five players, with each player controlling a character called a “hero”. To play Dota 2, an AI system must address various challenges: long time horizons, partially-observed state, high-dimensional action and observation spaces. Algorithms run at sufficient scale and with a reasonable way of exploring.</p>
+<h3 id="observation">Observation<a hidden class="anchor" aria-hidden="true" href="#observation">#</a></h3>
+<p>Dota 2 engine runs at 30 frames per second. To speed up the game execution and bring reactions of the model closer to the human scale, OpenAI Five downsamples to every 4th frame, which called timestep. Each timestep, OpenAI Five receives an observation from the game engine encoding all the information a human player would see such as units’ health, position, etc, and approximates the information available to a human player in a set of data arrays (semantic observation).</p>
+<!-- ![Fig1](../pics/image.png "Fig. 1. Timescales and Staleness: The breakdown of a rollout game.") -->
+<!-- <center><img src="../pics/image.png" width="50%" /></center>
+<center>Fig. 1. Timescales and Staleness: The breakdown of a rollout game.</center> -->
+<center><figure>
+    <img loading="lazy" src="../pics/fig_1.png" width="50%"/> <figcaption>
+            Fig. 1. Timescales and Staleness: The breakdown of a rollout game.
+        </figcaption>
+</figure>
+</center>
+<p>An OpenAI Five hero observes 16000 inputs about the game state, including 1,200 categorical values and 14,534 continuous / boolean values. All float observations (including booleans which are treated as floats that happen to take values 0 or 1) are normalized before feeding into the neural network (subtract the mean and divide by the st dev, clipping the final result to be within (-5, 5)).</p>
+<ul>
+<li>189 units: heroes (5), creeps (30), buildings (21), wards (30), and courier (1) for each team, plus 15 neutrals. If the number of visible units in a category is less than the allotted number, the rest are padded with zeroes. If more, the model observes only the units closest to allied heroes. Units in fog of war are not observed. When enemy heroes are in fog of war, the model reuses the observation from the last time step when the unit was visible.</li>
+</ul>
+<center><figure>
+    <img loading="lazy" src="../pics/tab_1.png" width="80%"/> <figcaption>
+            Tab. 1. Full observation space.
+        </figcaption>
+</figure>
+</center>
+<h3 id="action">Action<a hidden class="anchor" aria-hidden="true" href="#action">#</a></h3>
+<p>The action space also includes primary actions and parameter actions. Across the two games the average number of actions for a hero varied from 8,000 to 80,000.</p>
+<ul>
+<li>Primary actions: including universal actions like noop, move, attack, and others. Using or activating one of the hero’s spells, items, and situational actions such as Buyback (if dead), Shrine (if near a shrine), or Purchase (if near a shop).</li>
+<li>Parameter actions: 3 parameter outputs, including delay (4 dim，indicates which frame during the frameskip the model wants this action to evaluate on, but the model did not learn to do this and simply taking the action at the start of the frameskip was better), unit selection (189 dim), and offset (grid, 81 dim). Depending on the primary action, some of them are read and others ignored. OpenAI Five masks out the ignored ones, and invalid parameter combinations are treated as no-ops.</li>
+</ul>
+<p>Because teleport action is much more rare, the model outputs a normal unit selection parameter and a separate teleport selection parameter, and one or the other is used depending on the primary action. Similarly, the Offset parameter is split into “Regular Offset”, “Caster Offset” (for actions which only make sense offset from the caster), and “Ward Placement Offset” (for the rare action of placing observer wards).
+Scripted actions randomly perturbed to ensure robustness: Take the build order as an example, this randomization is done randomly deleting items from the build order and randomly inserting new items sampled from the distribution of which items that hero usually buys in human games. Each additional action that removed from the scripted logic and hand to the model’s control gives the RL.</p>
+<ul>
+<li>Ability builds: in training, OpenAI Five randomizes around the fixed script somewhat to ensure the model is robust to the opponent choosing a different schedule.</li>
+<li>Item purchasing: for consumables, OpenAI Five ensures that the agent always has a certain set of consumables, and stops purchasing consumables after a certain time in the game. For non-consumables, OpenAI Five follows a fixed schedule.</li>
+<li>Item swap: keep the most valuable items in the inventory.</li>
+<li>Courier control: use a state-machine based logic to control this character.</li>
+</ul>
+<h3 id="environment">Environment<a hidden class="anchor" aria-hidden="true" href="#environment">#</a></h3>
+<p>Design Dota2 environment to behave like a standard OpenAI Gym environment. The step method is called in the gRPC server, it gets dispatched to the Lua code and then the method blocks until an observation arrives back from Lua to be returned to the caller. Go was chosen to make this architecture easy to implement through its channels feature. Putting the game environment behind a gRPC server allowed us to package the game into a Docker image and easily run many isolated game instances per machine. Originally the Lua scripting API was used to iterate and gather the visible game state, however this was somewhat slow and final system used an all-in-one game state collection method that was added through cooperation with Valve.</p>
+<h3 id="reward">Reward<a hidden class="anchor" aria-hidden="true" href="#reward">#</a></h3>
+<p>Shaped reward is modeled loosely after potential-based shaping functions, and gave the agent reward (or penalty) for a set of actions which humans playing the game generally agree to be good. In addition to the set of actions rewarded and their weight, reward function contains 3 other pieces.</p>
+<ul>
+<li>Zero sum: OpenAI Five postprocess each agent’s reward by subtracting the other team’s average reward to prevent the agents from finding positive-sum situations.</li>
+<li>Game time weighting: multiplying all rewards other than the win / loss reward by a factor which decays exponentially over the course of the game. $\rho_i\leftarrow\rho_i\times0.6^{(T/10\mathrm{~mins})}$</li>
+<li>Team spirit: lower team spirit reduces gradient variance in early training, ensuring that agents receive clearer reward for advancing their mechanical and tactical ability to participate in fights individually, when team spirit is 1, the total amount of reward is five times higher for “Team” rewards than “Solo” rewards.</li>
+</ul>
+<center><figure>
+    <img loading="lazy" src="../pics/tab_2.png" width="90%"/> <figcaption>
+            Tab. 2. Shaped reward weights.
+        </figcaption>
+</figure>
+</center>
+<h3 id="model">Model<a hidden class="anchor" aria-hidden="true" href="#model">#</a></h3>
+<p>OpenAI Five use five replica LSTMs for five heros, policy (rsingle-layer 4096-unit LSTM) has approximately 159 million parameters. Separate fully connected layers producing policy and value function outputs, value function and action policy share a network and share gradients.</p>
+<p>Before inputting LSTM, OpenAI Five processes each observation according to its data type. For example for spatial data, concatenate the data within each cell and then apply a 2 layer conv net. For unordered sets, use a “Process Set” module. Weights in the Process Set module for processing abilities / items / modifiers are shared across allied and enemy heroes; weights for processing modifiers are shared across allied / enemy / neutral nonheroes. The model also extracts the the Unit Embeddings from the “embedding output” of the units’ process sets, for use in the output.</p>
+<center><figure>
+    <img loading="lazy" src="../pics/fig_2.png" width="90%"/> <figcaption>
+            Fig. 2. Flattening the observation space.
+        </figcaption>
+</figure>
+</center>
+<p>LSTM receives an extra input from the observation processing, indicating which of the five heroes is being controlled, the only differences are the nearby map, previous action, and a very small fraction of the observations for each unit, it is possible that they are not needed at all. “Cross-hero pool” operation, in which we maxpool the first 25% of the vector across the five replica networks. The “Unit Embeddings” from the observation processing are carried along beside the LSTM, and used by the action heads to choose a unit to target.</p>
+<center><figure>
+    <img loading="lazy" src="../pics/fig_3.png" width="50%"/> <figcaption>
+            Fig. 3. Preparing for LSTM.
+        </figcaption>
+</figure>
+</center>
+<center><figure>
+    <img loading="lazy" src="../pics/fig_4.png" width="90%"/> <figcaption>
+            Fig. 4. The hidden state of the LSTM and unit embeddings are used to parameterize the actions.
+        </figcaption>
+</figure>
+</center>
+<h3 id="training">Training<a hidden class="anchor" aria-hidden="true" href="#training">#</a></h3>
+<p>The policy is trained using Proximal Policy Optimization (PPO was the first to show initial learning progress). The optimization algorithm uses Generalized Advantage Estimation (GAE, $\lambda = 0.95$), a standard advantage-based variance reduction technique to stabilize and accelerate training. Made changes to four key hyperparameters: learning Rate, entropy penalty coefficient, team spirit, GAE time horizon. Batch sizes of 1 to 3 million timesteps (grouped in unrolled LSTM windows of length 16). OpenAI Five plays 180 years worth of games against itself every day, learning via self-play. It trains using a scaled-up version of Proximal Policy Optimization running on 256 GPUs and 128,000 CPU cores. OpenAI Five trained for 180 days (spread over 10 months of real time due to restarts and reverts).</p>
+<center><figure>
+    <img loading="lazy" src="../pics/tab_3.png" width="80%"/> <figcaption>
+            Tab. 3. Hyperparameters.
+        </figcaption>
+</figure>
+</center>
+<p>Asynchronously: the policy parameters which played the start of the game would be an hour old or more, making the gradients estimated from them incorrect. Consequently, OpenAI Five accumulates small amount of training data, sending it over to optimizers and updating agent parameters, then continuing with the same game. A central pool of optimizer GPUs receives game data and stores it asynchronously in local buffers called experience buffers. Each optimizer GPU computes gradients using minibatches sampled randomly from its experience buffer (4096 samples). Gradients are averaged across the pool using NCCL2 allreduce before being synchronously applied to the parameters. The Adam optimizer truncated backpropagation between $\pm5\sqrt{v}$ where $v$ is the running estimate of the second moment of the (unclipped) gradient. Every 32 gradient steps, the optimizers publish a new version of the parameters to a central Redis storage called the controller. The controller also stores all metadata about the state of the system, for stopping and restarting training runs. Rough cost statistics by dollars spent: Optimization（30%），forward passes (30%), rollouts CPUs running the selfplay games (30%), TrueSkill evaluators, CPUs on the GPU machines, etc (10%). The entire system runs on the custom distributed training platform called Rapid, running on Google Cloud Platform, using ops from the blocksparse library for fast GPU training.</p>
+<center><figure>
+    <img loading="lazy" src="../pics/fig_5.png" width="90%"/> <figcaption>
+            Fig. 5. System overview.
+        </figcaption>
+</figure>
+</center>
+<p>Self-play: play the latest policy against itself for 80% of games, and play against older policies for 20% of games. Opponents nearby in skill but avoid playing agents more than 10 TrueSkill points (corresponding to a winrate less than 15% or more than 85%). OpenAI Five uses a dynamic sampling system in which each past opponent $i = 1..N$ is given a quality score $q_{i}$. Opponent agents are sampled according to a softmax distribution $q_{i} \leftarrow q_{i}-\frac{\eta}{N p_{i}}$. Every 10 iterations OpenAI Five adds the current agent to past opponent pool and initialize its quality score to the maximum of the existing qualities. After each rollout game is completed, if the past opponent defeats the current agent, no update is applied. If the current agent defeats a past opponent, an update is applied proportional to a learning rate constant (which we fix at 0.01).</p>
+<p>Action offset: reducing computational requirements, likely an underestimate of reaction time. The model takes at time $T+1$ is based upon the observation at time $T$，reaction time randomly distributed between 5 and 8 frames (167ms to 267ms)，depending on when during the frameskip the new information happens to occur.</p>
+<center><figure>
+    <img loading="lazy" src="../pics/fig_6.png" width="70%"/> <figcaption>
+            Fig. 6. Reaction time.
+        </figcaption>
+</figure>
+</center>
+<p>To reproduce OpenAI Five, rerun took 2 months and approximately 20% of the resources of OpenAI Five, which continued to improve beyond OpenAI Five’s skill, and reached over 98% winrate against the final version of OpenAI Five. Some parameters were changed in the original OpenAI Five out of necessity, and others were changed for compute resources (batch size, sample reuse).</p>
+<h3 id="exploration">Exploration<a hidden class="anchor" aria-hidden="true" href="#exploration">#</a></h3>
+<p>Loss function：entropy is added to the PPO loss，lower it during training，and entropy coefficient 0.01 performs best（Lower entropy performs worse because the model has a harder time exploring, higher entropy performs much worse because the actions are too random）, team spirits：at the very start team spirit 0 is the best, quickly ovdertaken by team spirit 0.3 and 0.5, and OpenAI Five hypothesizes that later in training team spirit 1.0 will be best.</p>
+<p>Environment Randomization：initial state (In rollout games, heroes start with random perturbations around the default starting), lane assignments (randomly assigned each hero to a subset of lanes, and penalized them with negative reward for leaving those lanes，ablation study indicates that this may not have been necessary in the end), Roshan health：in order to make this task easier to learn, OpenAI Five randomizes Roshan’s health between zero and the full value, making it easier to kill, hero lineup (training with additional heroes causes only a modest slowdown to training despite the extra heroes having new abilities and strategies which interact in complex ways), item selection (swapping, adding, or removing some items from the build，a team with randomly picked items is likely to perform worse, as our standard build is carefully crafted).</p>
+<p>Experiments cover early training (approximately one week) at small scale (8x smaller than Rerun). (1) Batch Size: In practice we see less than this ideal speedup (linear speedup). (2) Data Quality: staleness and sample reuse (3) Long term credit assignment: maximize rewards 6 minutes into the future (reward shaping).</p>
+<ul>
+<li>Batch size：8x smaller than Rerun (which itself was 2-3 times smaller than OpenAI Five). Larger batch sizes showed that strong scaling was possible by carefully tuning learning rate and initialization of the neural network.</li>
+<li>Sample quality — staleness: by artificially introducing additional delay found staleness between 0 and 1 performs best.</li>
+<li>Sample quality — sampling and sample reuse: sample reuse below one can be beneficial，sample reuse 1 just means that on average each sample is used once, but in fact many samples are used twice, and some not used at all. Two adjacent samples from the same game may have similar drawbacks to using the same sample twice, so sample reuse 1 appropriate.</li>
+</ul>
+<h3 id="surgery">Surgery<a hidden class="anchor" aria-hidden="true" href="#surgery">#</a></h3>
+<p>The goal is how to initialize the new parameters for the TrueSkill of agent $\hat{\pi} _ {\hat{\theta}}=\pi_{\theta}$ (Similar to prior work on Net2Net style function preserving transformations which attempt to add model capacity without compromising performance). Total of twenty surgeries (along with many unsuccessful surgery attempts). It is convient to adding a new game feature which expected to only matter at high skill (adding items like Bottle and Rapier), and minor improvements to the observation space (stock counts, modifiers on nonheroes, and others).</p>
+<ul>
+<li>Changing the architecture: adding more units to an internal fully-connected layer of the model. Initializing neural network weights to zero is a dangerous business, because it can introduce undesired symmetries between the indices of the output vector. However, this was easy to avoid by only zero-ing the minimal set of weights (in the example above, the symmetry is broken by the randomization of $\hat{W}_1$ and $\hat{B}_1$). Note for LSTM from 2048 units to 4096 units：set the new weights to random small values.
+$$
+\hat{W}_1=\left[
+\begin{array}{c}
+W_1 \\
+R()
+\end{array}\right]
+\quad
+\hat{B}_1=\left[
+\begin{array}{c}
+B_1 \\
+R()
+\end{array}\right]
+\quad
+\hat{W}_2=\left[
+\begin{array}{cc}
+W_2 &amp; 0
+\end{array}\right]
+$$</li>
+<li>Changing the Observation Space: before the policy sees the observation arrays, an &ldquo;encoder&rdquo; function $E$ has turned a game state $s$ into an input array $o$. Then initializing the new weights $\hat{W}$ as:
+$$
+\hat{W}=\left[\begin{array}{ll}
+W &amp; 0
+\end{array}\right]
+$$ This ensures that the rest of the model is unchanged. The weights which are initialized to zero will move away from zero due to the gradients, if the corresponding observations are found to be useful.</li>
+<li>Changing the Environment: the game gets an update about once every two weeks, constantly changing the environment semantics or action space (Buyback). Simply making the change on the rollout workers to be relatively stable，“anneal“ from 0 to 100%. When the model losing TrueSkill during the annealing process, training revert and attempt the anneal at a slower rate. Agent’s skill is measured through winrates against other models, and the opponent also has to play in the new environment.</li>
+<li>Removing Model Parts: simply always set to constants.</li>
+<li>Smooth Training Restart: use a learning rate of 0 for the first several hours of training after surgery. It is crucial to ensure agent behavior is unchanged after surgery (avoid forever playing worse, reducing the quality of the opponent pool).</li>
+</ul>
+<h3 id="supplementary">Supplementary<a hidden class="anchor" aria-hidden="true" href="#supplementary">#</a></h3>
+<p>OpenAI Five can react to a game event in 217ms on average, and typical human visual reaction time is approximately 250ms. OpenAI Five originally used MPI’s allreduce for averaging, but then used NCCL2 wrappers that parallelize GPU computations and network data transfer.</p>
+<p>Scripted actions: certain game mechanics were controlled by hand-scripted logic rather than the policy, such as the order in which heroes purchase items and abilities, control of the unique courier unit, and which items heroes keep in reserve.</p>
+<p>Hero selection：use the win probability predictor, precompute agent’s predicted win probability from the first few frames of every lineup. Because only 4,900,896 combinations of two 5-hero teams from the pool of 17 heroes, dynamic programming algorithm to draft the best hero available on each turn is possible (using minimax algorithm picking the one that maximizes worstcase scenario of opponent hero selection).
+Hero Pool Size: training with 80 heroes in early stage has a speedup factor of approximately 0.8, meaning early training runs 20% slower than with the base 17 heroes.</p>
+<center><figure>
+    <img loading="lazy" src="../pics/fig_7.png" width="90%"/> <figcaption>
+            Fig. 7. When drafting heroes, OpenAI Five drafting program would pick the one that maximizes worst- case scenario of opponent hero selection (minimax algorithm).
+        </figcaption>
+</figure>
+</center>
+<p>A failed surgery found replacing a certain set of 128 learned parameters (discarded) in the model with zero (special) increased the model’s performance significantly.</p>
+<p>Divine Rapier could cause the agents to enter a negative feedback, which was not observed during initial long-lasting training because Rapier was only added after the team spirit hyperparamater was raised to 1.</p>
+<h3 id="evaluation">Evaluation<a hidden class="anchor" aria-hidden="true" href="#evaluation">#</a></h3>
+<p>OpenAI Five defeated the Dota 2 world champions in a best-of-three match and 99.4% of human players during a multi-day online showcase. To evaluating agents’ understanding, OpenAI Five attempts to predict future state of various features of the game (win probability, net worth rank, and team objectives / enemy buildings) from agent’s LSTM state (adding small networks of fully-connected layers that transform LSTM output into predictions of these values). For win probability, for example, more precisely the label $y$ for a segment from time $t_1$ to $t_2$ is given by:</p>
+<p>$$
+y= \begin{cases}1 &amp; \text { last segment of the game, we win } \\ 0 &amp; \text { last segment of the game, we lose } \\ \hat{y}\left(t_2\right) &amp; \text { else }\end{cases}
+$$</p>
+<p>Where $\hat{y}\left(t_2\right)$ is the model’s predicted win probability at the end of the segment. For historical reasons, win probability passes gradients to the main LSTM and rest of the agent with a very small weight, the other auxiliary predictions use Tensorflow’s <code>stop_gradient</code> method to train on their own. Team objectives / enemy buildings：apply an additional discount factor with horizon of 2 minutes. Time horizon over discounts rewards (as a proxy), defined as $H=\frac{T}{1-\gamma}$, here $\gamma$ is the discount factor and $T$ is the real game time corresponding to each step (0.133 seconds).</p>
+<p>For TrueSkill rating system, difference of approximately 8.3 between two agents roughly corresponds to an 80% winrate of one versus the other (hand-crafted scripted agent TrueSkill around 105). Reference agents range in TrueSkill from 0 (random play) to 254. New agents are initialized with $\mu$  equal to the final $\mu$ of the previous agent, and system gives agent updates approximately once every two hours during running experiments. One difficulty in using TrueSkill was maintaining consistent metrics with a changing environment. Though older agents had their code upgraded in order to always be compatible with the newest version, this still leads to metric inflation for newer agents who got to train on the same code they are evaluated on.</p>
+<p>Some OpenAI Five’s “playstyle&quot;: (1) prioritized large group fights in the game as opposed to accumulating resources for later. (2) concentrate resources in the hands of its strongest heroes (3) moved heroes back and forth across the map much more frequently, understood of when an aggressive attack with a low-health hero was worth a risk, tended to more readily consume resources, as well as abilities with long cooldowns (time it takes to reload).</p>
+<h3 id="references">References<a hidden class="anchor" aria-hidden="true" href="#references">#</a></h3>
+<p>[1] Berner, Christopher, et al. <a href="https://arxiv.org/abs/1912.06680">&ldquo;Dota 2 with large scale deep reinforcement learning.&rdquo;</a> arXiv preprint arXiv:1912.06680 (2019).</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="https://dezhaozhu.github.io/">Dez&#39;Log</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Dez&#39;Log</title>
+    <link>https://dezhaozhu.github.io/</link>
+    <description>Recent content on Dez&#39;Log</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 30 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://dezhaozhu.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Summary of OpenAI Five details</title>
+      <link>https://dezhaozhu.github.io/posts/openaifive/openaifive/</link>
+      <pubDate>Sat, 30 Mar 2024 00:00:00 +0000</pubDate>
+      <guid>https://dezhaozhu.github.io/posts/openaifive/openaifive/</guid>
+      <description>Reinforcement learning has been a research hotspot for many years. OpenAI Five, which started to defeat amateur human teams at Dota 2 still very impressive work. Dota 2 is one of the most popular and complex esports games in the world, a real-time strategy game played between two teams of five players, with each player controlling a character called a “hero”. To play Dota 2, an AI system must address various challenges: long time horizons, partially-observed state, high-dimensional action and observation spaces.</description>
+    </item>
+  </channel>
+</rss>
